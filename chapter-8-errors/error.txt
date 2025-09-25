@@ -1,0 +1,10 @@
+| Error Type       | When It Occurs              | Example                                 |
+| ---------------- | --------------------------- | --------------------------------------- |
+| `SyntaxError`    | Invalid JavaScript syntax   | Missing `)` or `{}`                     |
+| `ReferenceError` | Using undefined variable    | `console.log(x)` when `x` isn't defined |
+| `TypeError`      | Invalid operation on a type | Calling a non-function                  |
+| `RangeError`     | Value out of range          | Negative array length                   |
+| `URIError`       | Invalid URI function input  | `decodeURIComponent('%')`               |
+| `EvalError`      | Improper use of `eval()`    | Rare                                    |
+| `InternalError`  | JS engine internal failure  | Stack overflow                          |
+| `AssertionError` | Assertion failed (Node.js)  | `assert(false)`                         |

@@ -1,0 +1,220 @@
+{"name":"mihir","number":1,"from":"gujarat"}
+
+🛠 Examples:
+1️⃣ HTML Content भेजना:
+res.setHeader('Content-Type', 'text/html');
+res.write('<h1>Hello</h1>');
+res.end();
+
+2️⃣ JSON भेजना (API style):
+res.setHeader('Content-Type', 'application/json');
+res.write(JSON.stringify({ name: "Mihir", age: 22 }));
+res.end();
+
+3️⃣ Cookie सेट करना:
+res.setHeader('Set-Cookie', 'user=Mihir; HttpOnly');
+res.end('Cookie Set');
+
+4️⃣ CORS allow करना (Frontend से Backend तक request allow करने के लिए):
+res.setHeader('Access-Control-Allow-Origin', '*');
+
+5️⃣ Redirect करना:
+res.statusCode = 302;
+res.setHeader('Location', '/new-url');
+res.end();
+
+
+
+Imagine you want to drink water from a big bottle.
+You can't gulp all water at once because it's too big.
+So, you drink little sips one by one until the bottle is empty.
+
+Streams
+A stream is like that water bottle — a flow of data that comes little by little, not all at once.
+Instead of waiting for the whole big data to be ready, the stream sends small parts continuously.
+This helps to save memory and start working on data right away.
+
+Chunks
+Those small sips you drink are like chunks.
+A chunk is a small piece of data that the stream sends at one time.
+So, the big data is divided into many chunks, and you get each chunk one after another.
+
+Buffer
+Now, think about a small cup where you temporarily keep the water before drinking it.
+A buffer is like that cup — a temporary storage space in memory.
+When you receive a chunk of data, it's stored in a buffer.
+After collecting chunks in the buffer, you can use/process them.
+
+Absolutely — let's walk through your Node.js code step-by-step and explain every concept in detail, just like you asked.
+
+✅ Your Code:
+const body = [];
+req.on('data', chunk => {
+    console.log(chunk);
+    body.push(chunk);
+});
+
+req.on('end', () => {
+    const fullBody = Buffer.concat(body).toString();
+    console.log(fullBody);
+    const params = new URLSearchParams(fullBody);
+    const bodyObject = {};
+    for (const [key, val] of params.entries()) {
+        bodyObject[key] = val;
+    }
+    console.log(bodyObject);
+});
+
+🧠 What is this code doing?
+
+This is a classic way to manually parse form data (like application/x-www-form-urlencoded) from an HTTP POST request without using body-parsing middleware like body-parser or express.json().
+
+🛠️ Breakdown:
+1. const body = [];
+
+You create an empty array to collect chunks of data as they arrive.
+
+Why an array? Because the incoming data might arrive in multiple chunks, not all at once.
+
+2. req.on('data', chunk => { ... })
+
+You're listening for the 'data' event on the req (request) object.
+
+This event fires every time a chunk of the request body arrives.
+
+Each chunk is a Buffer (a raw binary representation of data).
+
+You console.log(chunk) to inspect each chunk (you’ll see binary or buffer output).
+
+Then you .push(chunk) into the body array.
+
+💡 Real-world analogy: Think of downloading a file in pieces. You store each piece in order.
+
+3. req.on('end', () => { ... })
+
+The 'end' event means all chunks have been received, and the body is complete.
+
+Time to stitch those chunks back together and use the data.
+
+🔍 Buffer.concat(body).toString()
+🧩 What is Buffer.concat(body)?
+
+It combines (concatenates) all the chunks in the array into one single Buffer.
+
+Since each chunk in body[] is a Buffer, you can combine them all like this:
+
+const fullBody = Buffer.concat(body);
+
+
+This gives you a complete Buffer of the full request body.
+
+💬 Then .toString()?
+
+Converts the binary buffer into a UTF-8 string.
+
+const fullBody = Buffer.concat(body).toString();
+
+
+For example, if someone sent this form data:
+
+name=Alice&age=25
+
+
+After .toString(), fullBody becomes:
+
+"name=Alice&age=25"
+
+🔍 new URLSearchParams(fullBody)
+✅ What is URLSearchParams?
+
+A built-in Web API that can parse URL-encoded strings like query strings or form bodies.
+
+It's perfect for application/x-www-form-urlencoded content.
+
+It gives you an easy way to extract key-value pairs.
+
+const params = new URLSearchParams("name=Alice&age=25");
+
+
+Now, params has:
+
+params.get("name") → "Alice"
+
+params.get("age") → "25"
+
+🧱 Then this loop:
+const bodyObject = {};
+for (const [key, val] of params.entries()) {
+    bodyObject[key] = val;
+}
+
+
+Converts the params object (which behaves like a Map) into a regular JavaScript object:
+
+{
+  name: "Alice",
+  age: "25"
+}
+
+🖨️ console.log(bodyObject);
+
+Finally, prints the fully parsed body.
+
+🚀 DRY RUN Example:
+
+Let’s simulate an incoming POST request with this body:
+
+email=user@example.com&password=1234
+
+Step-by-step:
+
+Data arrives in 2 chunks:
+
+chunk 1: <Buffer 65 6d 61 69 6c 3d 75 73 65 72>
+         // "email=user"
+
+chunk 2: <Buffer 40 65 78 61 6d 70 6c 65 2e 63 6f 6d 26 70 61 73 73 77 6f 72 64 3d 31 32 33 34>
+         // "@example.com&password=1234"
+
+
+Push both into the array → body = [chunk1, chunk2].
+
+Buffer.concat(body).toString() becomes:
+
+"email=user@example.com&password=1234"
+
+
+new URLSearchParams(...) parses it into key-value pairs.
+
+The final object:
+
+{
+  email: "user@example.com",
+  password: "1234"
+}
+
+
+Logged to console.
+
+3. Object.fromEntries(params);
+
+This is a modern ES2019+ method.
+
+✅ What it does:
+
+Takes any iterable of key-value pairs (like a Map or URLSearchParams.entries()),
+
+Converts it into a plain JavaScript object.
+
+In this case, params is already an iterable object of [key, value] pairs.
+
+🔧 Under the hood, it does:
+const bodyObject = {
+  username: "admin",
+  password: "1234"
+};
+
+
+Printed to console:
+
+{ username: 'admin', password: '1234' }

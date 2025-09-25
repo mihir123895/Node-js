@@ -1,0 +1,1 @@
+{"fullname":"mikey","email":"mihir@gmail.com","event":"seminar"}
