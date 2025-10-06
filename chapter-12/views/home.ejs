@@ -1,0 +1,87 @@
+<%- include('partials/head') %>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+<main class="custom-home-card">
+  <h2>Here are our registered homes:</h2>
+  <ul>
+    <% registeredHomes.forEach(home => { %>
+      <li>
+        <img src="<%= home.photoUrl %>" alt="<%= home.houseName %> photo" />
+        <div class="card-content">
+          <h3><%= home.houseName %></h3>
+          <p><strong>Price/Night:</strong> $<%= home.price %></p>
+          <p><strong>Rating:</strong> <%= home.rating %> ⭐</p>
+          <p><strong>Location:</strong> <%= home.location %></p>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</main>
+
+<style>
+  .custom-home-card {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: sans-serif;
+  }
+
+  .custom-home-card h2 {
+    font-size: 1.75rem;
+    color: #ef4444; /* red-500 */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .custom-home-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .custom-home-card li {
+    background-color: #f9fafb; /* light gray */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease;
+  }
+
+  .custom-home-card li:hover {
+    transform: translateY(-5px);
+  }
+
+  .custom-home-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .custom-home-card .card-content {
+    padding: 1rem;
+  }
+
+  .custom-home-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    color: #1f2937; /* gray-800 */
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-home-card p {
+    margin: 0.25rem 0;
+    color: #374151; /* gray-700 */
+    font-size: 0.95rem;
+  }
+</style>
+  </body>
+</html>

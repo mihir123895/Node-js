@@ -1,0 +1,95 @@
+<%- include('partials/head') %>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+
+    <main class="custom-register">
+      <h1>Register Your Home on AirBnB</h1>
+      <form action="/host/add-home" method="POST">
+        <input
+          type="text"
+          name="houseName"
+          placeholder="Enter your House Name"
+        />
+        <input
+          type="text"
+          name="price"
+          placeholder="Enter your House price"
+        />
+
+        <input
+          type="text"
+          name="location"
+          placeholder="Enter your House location"
+        />
+
+        <input
+          type="text"
+          name="rating"
+          placeholder="Enter your House rating"
+        />
+
+        <input
+          type="text"
+          name="photoUrl"
+          placeholder="Enter your House Photourl"
+        />
+        <input type="submit" value="Submit" />
+      </form>
+    </main>
+
+    <style>
+      .custom-register {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-family: sans-serif;
+      }
+
+      .custom-register h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        color: #1f2937; /* Tailwind's gray-800 */
+      }
+
+      .custom-register form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .custom-register input[type="text"] {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.375rem;
+        outline: none;
+        transition: box-shadow 0.2s ease;
+      }
+
+      .custom-register input[type="text"]:focus {
+        box-shadow: 0 0 0 2px #ef4444; /* Tailwind's red-500 */
+      }
+
+      .custom-register input[type="submit"] {
+        width: 100%;
+        background-color: #ef4444; /* red-500 */
+        color: white;
+        padding: 0.5rem;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .custom-register input[type="submit"]:hover {
+        background-color: #dc2626; /* red-600 */
+      }
+    </style>
+  </body>
+</html>

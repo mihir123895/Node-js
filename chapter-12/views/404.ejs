@@ -1,0 +1,48 @@
+<%- include('partials/head') %>
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+
+    <main class="custom-404">
+      <h2>404</h2>
+      <p>Oops! Page Not Found</p>
+      <a href="/">Go Back Home</a>
+    </main>
+
+ 
+      .custom-404 {
+        max-width: 1200px;
+        margin: 5rem auto;
+        text-align: center;
+        font-family: sans-serif;
+      }
+
+      .custom-404 h2 {
+        font-size: 4rem;
+        font-weight: bold;
+        color: #ef4444; /* Tailwind's red-500 */
+        margin-bottom: 1rem;
+      }
+
+      .custom-404 p {
+        font-size: 1.5rem;
+        color: #374151; /* Tailwind's gray-700 */
+        margin-bottom: 2rem;
+      }
+
+      .custom-404 a {
+        display: inline-block;
+        background-color: #ef4444; /* red-500 */
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .custom-404 a:hover {
+        background-color: #dc2626; /* red-600 */
+      }
+    </style>
+  </body>
+</html>

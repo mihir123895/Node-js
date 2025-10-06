@@ -1,0 +1,50 @@
+<header class="custom-header">
+    <nav>
+      <ul>
+        <li>
+          <a href="/">Go to Home</a>
+        </li>
+        <li>
+          <a href="/host/add-home">Add Home</a>
+        </li>
+      </ul>
+    </nav>
+
+    <style>
+        
+.custom-header {
+      background-color: #ef4444; /* Tailwind's red-500 */
+      color: white;
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind's shadow-md */
+    }
+
+    .custom-header nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .custom-header ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .custom-header a {
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .custom-header a:hover {
+      background-color: #f87171; /* Tailwind's red-400 */
+    }
+    </style>
+  </header>
